@@ -18,8 +18,7 @@ NEWS_API_KEY = env('NEWS_API_KEY')
 
 DEBUG = env.bool('DEBUG')
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
-ALLOWED_HOSTS += os.environ.get("ALLOWED_HOSTS").split()
+ALLOWED_HOSTS = []
 
 
 # Application definition
