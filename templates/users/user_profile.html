@@ -1,0 +1,305 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+
+
+
+{% block content %}
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+			<div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Hi, welcome back!</h4>
+
+                            <p class="mb-0">Your business dashboard template</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">App</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Profile</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="profile card card-body px-3 pt-3 pb-0">
+                            <div class="profile-head">
+                                <div class="photo-content">
+                                    <div class="cover-photo">
+                                        {% if request.user.profile.cover_image %}
+                                            <img src="{{request.user.profile.cover_image.url}}">
+                                        {% else %}
+                                            <img src="{% static 'images/avatar/1.png' %}" alt="">
+                                        {% endif %}
+                                        
+                                    </div>
+                                </div>
+                                <div class="profile-info">
+									<div class="profile-photo">
+
+                                        {% if request.user.profile.profile_image %}
+                                        <img src="{{request.user.profile.profile_image.url}}" class="img-fluid rounded-circle" alt="">
+                                        {% else %}
+                                            <img src="{% static 'images/avatar/1.png' %}" alt="">
+                                        {% endif %}
+										    
+									</div>
+									<div class="profile-details">
+										<div class="profile-name px-3 pt-2">
+											<h4 class="text-primary mb-0">{{user.first_name}} {{user.last_name}}</h4>
+											<p>{{user.profile.occupation}}</p>
+										</div>
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4">
+						<div class="row">
+							<div class="col-xl-12">
+							</div>
+							<div class="col-xl-12">
+								<div class="card">
+									<div class="card-body">
+										<div class="profile-blog">
+											<h5 class="text-primary d-inline">Today Highlights</h5>
+											<img src="{{main_news.url_to_image}}" alt="" class="img-fluid mt-4 mb-4 w-100">
+											<h4><a href="{{main_news.url_to_news}}" target="_blank" class="text-black">{{main_news.title}}</a></h4>
+											<p class="mb-0">{{main_news.description}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
+                            
+
+							<div class="col-xl-12">
+								<div class="card">
+									<div class="card-body">
+										<div class="profile-news">
+											<h5 class="text-primary d-inline">Our Latest News</h5>
+                                            {% for news in other_news %}
+											<div class="media pt-3 pb-3">
+												<img src="{{news.url_to_image}}" alt="image" class="mr-3 rounded" width="75">
+												<div class="media-body">
+													<h5 class="m-b-5"><a href="{{news.url_to_news}}" class="text-black">{{news.title}}</a></h5>
+													<p class="mb-0">{{news.description}}</p>
+												</div>
+											</div>
+                                            {% endfor %}
+										</div>
+									</div>
+								</div>
+							</div>
+                            
+
+						</div>
+                    </div>
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="profile-tab">
+                                    <div class="custom-tab-1">
+                                        <ul class="nav nav-tabs">
+                                            <li class="nav-item"><a href="#about-me" data-toggle="tab" class="nav-link">About Me</a>
+                                            </li>
+                                            <li class="nav-item"><a href="#profile-settings" data-toggle="tab" class="nav-link">Setting</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div id="about-me" class="tab-pane fade active show">
+                                                <div class="profile-about-me">
+                                                    <div class="pt-4 border-bottom-1 pb-3">
+                                                        <h4 class="text-primary">About Me</h4>
+                                                        <p class="mb-2">{{request.user.profile.description}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-lang  mb-5">
+                                                    <h4 class="text-primary mb-2">Native language</h4>
+													<p>{{user.profile.language}}</p>
+                                                </div>
+                                                <div class="profile-personal-info">
+                                                    <h4 class="text-primary mb-4">Personal Information</h4>
+                                                    <div class="row mb-2">
+                                                        <div class="col-sm-3 col-5">
+                                                            <h5 class="f-w-500">Name <span class="pull-right">:</span>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="col-sm-9 col-7"><span>{{user.get_full_name}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-sm-3 col-5">
+                                                            <h5 class="f-w-500">Email <span class="pull-right">:</span>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="col-sm-9 col-7"><span><a class="__cf_email__" data-cfemail="a9ccd1c8c4d9c5cce9ccd1c8c4d9c5ccc587cac6c4">[email&#160;protected]</a></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-sm-3 col-5">
+                                                            <h5 class="f-w-500">Availability <span class="pull-right">:</span></h5>
+                                                        </div>
+                                                        <div class="col-sm-9 col-7"><span>{{user.profile.availability}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-sm-3 col-5">
+                                                            <h5 class="f-w-500">Birth Date<span class="pull-right">:</span>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="col-sm-9 col-7"><span>{{user.profile.birth_date}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-sm-3 col-5">
+                                                            <h5 class="f-w-500">Location <span class="pull-right">:</span></h5>
+                                                        </div>
+                                                        <div class="col-sm-9 col-7"><span>{{user.profile.address}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-sm-3 col-5">
+                                                            <h5 class="f-w-500">Year Experience <span class="pull-right">:</span></h5>
+                                                        </div>
+                                                        <div class="col-sm-9 col-7"><span>{{user.profile.years_of_experience}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="profile-settings" class="tab-pane fade">
+                                                <div class="pt-3">
+                                                    <div class="settings-form">
+                                                        <h4 class="text-primary">Account Setting</h4>
+
+
+                                                        {% if errors %}
+                                                        <h1>{{ errors }}</h1>
+                                                        {% endif %}
+
+                                                        <form action="" method="POST"  enctype="multipart/form-data">
+                                                            {% csrf_token %}
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="first name">First Name</label>
+                                                                    <input type="text" class="form-control" value ="{{request.user.first_name}}" name="first_name">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="last name">Last name</label>
+                                                                    <input type="text" class="form-control" value="{{request.user.last_name}}" name="last_name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="phone_number">Phone Number</label>
+                                                                    <input type="tel" class="form-control" value="{{request.user.profile.phone_number}}" name="phone_number" placeholder="Enter phone number">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="facebook">Facebook</label>
+                                                                    <input type="text" class="form-control" value="{{request.user.profile.facebook_url}}" name="facebook_url" placeholder="Enter Facebook URL">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="profile_image">Profile Image</label>
+                                                                    <input type="file" class="form-control-file" id="profile_image" name="profile_image">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="cover_image">Cover Image</label>
+                                                                    <input type="file" class="form-control-file" id="cover_image" name="cover_image">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="occupation">Occupation</label>
+                                                                    <input type="text" class="form-control" value="{{request.user.profile.occupation}}" name="occupation" placeholder="Enter occupation">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="description">Description</label>
+                                                                    <textarea class="form-control" name="description" rows="3">{{request.user.profile.description}}</textarea>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label>Native Language</label>
+                                                                    <select class="form-control default-select" id="inputState" name="language">
+                                                                    {% for language in languages %}
+                                                                        <option {% if request.user.profile.language.name == language.name %} selected="selected" {% endif %}>{{language.name}}</option>
+                                                                    {% endfor %}
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="availability">Availability</label>
+                                                                    <select class="form-control" id="availability" name="availability">
+                                                                        <option {% if request.user.profile.availability == 'full-time' %} selected="selected" {% endif %}>full-time</option>
+                                                                        <option {% if request.user.profile.availability == 'part-time' %} selected="selected" {% endif %}>part-time</option>
+                                                                        <option {% if request.user.profile.availability == 'freelance' %} selected="selected" {% endif %}>freelance</option>
+                                                                        <option {% if request.user.profile.availability == 'other' %} selected="selected" {% endif %}>other</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row">
+
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="birthdate">Birthdate</label>
+                                                                    <input type="date" class="form-control" value="{{request.user.profile.birth_date|date:'Y-m-d'}}" name="birth_date">
+                                                                </div>
+
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="year_experience">Years of Experience</label>
+                                                                    <input type="number" class="form-control" value="{{request.user.profile.years_of_experience}}" name="years_of_experience" placeholder="Enter years of experience">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label>Address</label>
+                                                                    <input type="text" placeholder="1234 Main St" class="form-control" value="{{request.user.profile.address}}" name="address">
+                                                                </div>
+
+                                                                <div class="form-group col-md-6">
+                                                                    <label>Country</label>
+                                                                    <select class="form-control default-select" id="inputState" name="country">
+                                                                    {% for country in countries %}
+                                                                        <option {% if request.user.profile.country.name == country.name %} selected="selected" {% endif %} >{{country.name}}</option>
+                                                                    {% endfor %}
+                                                                    </select>
+                                                                </div>
+                                                                    
+                                                            </div>
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="company_name">Company Name</label>
+                                                                    <input type="text" class="form-control" value="{{request.user.profile.company_name}}" name="company_name" placeholder="Enter company name">
+                                                                </div>
+                                                            </div>
+                                                            <button class="btn btn-primary" type="submit">Update Info</button>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+{% endblock %}
