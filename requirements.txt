@@ -6,7 +6,9 @@ Django==4.2.6
 django-environ==0.11.2
 environ==1.0
 idna==3.4
+mysqlclient==2.2.0
 Pillow==10.1.0
+python-dotenv==1.0.0
 requests==2.31.0
 sqlparse==0.4.4
 typing_extensions==4.8.0

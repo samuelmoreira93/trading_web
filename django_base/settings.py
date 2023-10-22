@@ -3,9 +3,11 @@ import environ
 import dj_database_url
 
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(os.path.join(BASE_DIR, ".env" ))
 
 env = environ.Env()
 environ.Env.read_env( os.path.join(BASE_DIR, '.env') )
@@ -13,12 +15,13 @@ environ.Env.read_env( os.path.join(BASE_DIR, '.env') )
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-SECRET_KEY = env('SECRET_KEY')
-NEWS_API_KEY = env('NEWS_API_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
+NEWS_API_KEY = os.environ.get('NEWS_API_KEY')
 
-DEBUG = env.bool('DEBUG')
+DEBUG = os.environ.get("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS += os.environ.get("ALLOWED_HOSTS").split()
 
 
 # Application definition
@@ -46,6 +49,7 @@ INSTALLED_APPS = BASE_APPS + THIRD_APPS + MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -120,7 +124,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR / 'django_base/static')
+]
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
