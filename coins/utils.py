@@ -19,7 +19,7 @@ def generate_transactions():
     transactions_to_create = []
     for coin in Coin.objects.all():
         today = timezone.now()
-        for i in range(1, 31): #For each day
+        for i in range(1, 31):
             for j in range(1,31):
                 new_transaction = Transaction(
                     coin = coin,
@@ -64,5 +64,5 @@ def get_details_graph_data(coin):
 
 def get_recent_transactions():
     since_day = Transaction.get_last_day() - timedelta(days=2)
-    return random.choices(Transaction.objects.filter(date__gte=since_day), k=6) #date >= since_day (Greater than or equal to)
+    return random.choices(Transaction.objects.filter(date__gte=since_day), k=6)
 

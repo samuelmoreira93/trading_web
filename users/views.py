@@ -35,6 +35,7 @@ def login_view(request):
             }
             return render(request, 'users/login.html', context)
 
+
 def register(request):
     if request.method == 'GET':
         return render(request, 'users/register.html')
@@ -90,7 +91,7 @@ def user_profile_view(request):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
-
+        generate_user_coin_amount()
 
 @login_required
 def users_list_view(request):

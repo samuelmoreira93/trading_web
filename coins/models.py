@@ -57,7 +57,6 @@ class Coin(models.Model):
         last_day = self.get_last_day()
         return round(self.get_price_by_date(last_day), 2)
 
-
     def get_performance_of_week(self, end_date):
         week_price = 0
         for i in range(0, 7):
